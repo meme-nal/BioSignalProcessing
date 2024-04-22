@@ -2,7 +2,7 @@ import mne
 import matplotlib.pyplot as plt
 
 # getting the raw data
-raw_data = mne.io.read_raw_edf('record.edf', preload=True)
+raw_data = mne.io.read_raw_edf('./data/record.edf', preload=True)
 
 # dropping bad channels
 bad_channels = raw_data.ch_names[-5:-1]
