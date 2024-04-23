@@ -25,6 +25,7 @@ eyes_opened_alpha = eyes_opened.copy().filter(l_freq=8, h_freq=13)
     ica.plot_overlay(eyes_closed)
 """
 
-
+eyes_closed_alpha.pick(['EEG PZ-A1_PZ-A1', 'EEG P3-A2_P3-A2', 'EEG P4-A1_P4-A1']).plot_psd(fmin=7, fmax=14)
+eyes_opened_alpha.pick(['EEG PZ-A1_PZ-A1', 'EEG P3-A2_P3-A2', 'EEG P4-A1_P4-A1']).plot_psd(fmin=7, fmax=14)
 
 plt.show()
