@@ -1,4 +1,7 @@
 import mne
+import matplotlib
+matplotlib.use('GTK4Agg')
+
 import matplotlib.pyplot as plt
 
 # getting the raw data
@@ -9,25 +12,19 @@ bad_channels = raw_data.ch_names[-5:-1]
 bad_channels.append("SAO2-1")
 preprocessed_data = raw_data.drop_channels(bad_channels)
 
-# finding events
-events = mne.events_from_annotations(preprocessed_data)
-print(events)
+eyes_closed = preprocessed_data.copy().crop(tmin=146, tmax=161)
+eyes_opened = preprocessed_data.copy().crop(tmin=168, tmax=180)
 
-#delta_freq_preprocessed_data = preprocessed_data.copy().filter(l_freq=0.5, h_freq=4)
-#theta_freq_preprocessed_data = preprocessed_data.copy().filter(l_freq=4, h_freq=8)
-#alpha_freq_preprocessed_data = preprocessed_data.copy().filter(l_freq=8, h_freq=13)
-#beta_freq_preprocessed_data = preprocessed_data.copy().filter(l_freq=13, h_freq=30)
-#gamma_freq_preprocessed_data = preprocessed_data.copy().filter(l_freq=30, h_freq=170)
+eyes_closed_alpha = eyes_closed.copy().filter(l_freq=8, h_freq=13)
+eyes_opened_alpha = eyes_opened.copy().filter(l_freq=8, h_freq=13)
 
-# plotting eeg diagram
-#gamma_freq_preprocessed_data.plot()
-#beta_freq_preprocessed_data.plot()
-#alpha_freq_preprocessed_data.plot()
-#theta_freq_preprocessed_data.plot()
-#delta_freq_preprocessed_data.plot()
-#preprocessed_data.plot()
-#plt.show()
+""" ica = mne.preprocessing.ICA(n_components=6, random_state=0)
+    ica.fit(eyes_closed.filter(6, 35))
+    ica.apply(eyes_closed)
+
+    ica.plot_overlay(eyes_closed)
+"""
 
 
-#as
 
+plt.show()
