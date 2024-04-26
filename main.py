@@ -23,24 +23,17 @@ raw_data.set_montage(std_montage)
 eyes_closed = raw_data.copy().crop(tmin=146, tmax=161)
 eyes_opened = raw_data.copy().crop(tmin=168, tmax=180)
 
-eyes_closed.compute_psd().plot_topomap()
-#eyes_opened.compute_psd().plot_topomap()
-
-""" Legacy code extracting alpha-rythme
+""" Legacy code extracting alpha-rhythm
 eyes_closed_alpha = eyes_closed.copy().filter(l_freq=8, h_freq=13)
 eyes_opened_alpha = eyes_opened.copy().filter(l_freq=8, h_freq=13)
 eyes_closed_alpha.pick(['EEG PZ-A1_PZ-A1', 'EEG P3-A2_P3-A2', 'EEG P4-A1_P4-A1']).plot_psd(fmin=7, fmax=14)
 eyes_opened_alpha.pick(['EEG PZ-A1_PZ-A1', 'EEG P3-A2_P3-A2', 'EEG P4-A1_P4-A1']).plot_psd(fmin=7, fmax=14)
 """
 
-""" ICA preprocessing segment
+# ICA preprocessing segment
 
-    ica = mne.preprocessing.ICA(n_components=6, random_state=0)
-    ica.fit(eyes_closed.filter(6, 35))
-    ica.apply(eyes_closed)
-
-    ica.plot_overlay(eyes_closed)
-"""
-
+ica = mne.preprocessing.ICA(n_components=None, method='fastica', random_state=0)
+ica.fit(eyes_closed)
+ica.apply(eyes_closed)
 
 plt.show()
